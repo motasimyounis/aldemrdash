@@ -1,0 +1,128 @@
+{% extends "students/base-s.html" %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+{% if user.is_paid %}
+
+<section class="playlist-details" style="direction: rtl;">
+
+   <h1 class="heading">تفاصيل قائمة التشغيل</h1>
+
+   <div class="row">
+
+     
+      <div class="column">
+         <div class="tutor" style="display: flex;
+            justify-content: center;
+            align-items: center;">
+            
+            <iframe width="600" height="320" src="{{lists.url}}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   
+   
+         </div>
+         <div class="details">   
+            <h3> </h3>
+            <p>{{lists.description}}</p>
+            <a href="{{lists.url}}" class="inline-btn">مشاهدة</a>
+         </div>
+      </div>
+   </div>
+
+</section>
+
+{% endif %}
+
+<style>
+@media (max-width: 991px) {
+   .playlist-details {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+   }
+   .heading {
+      text-align: center;
+      margin-bottom: 20px;
+   }
+   .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+   }
+   .column {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+   }
+   .tutor {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   .details {
+      text-align: center;
+   }
+   .inline-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+   }
+   .inline-btn:hover {
+      background-color: #0056b3;
+   }
+   @media (max-width: 768px) {
+      .row {
+         flex-direction: column;
+         align-items: center;
+      }
+      .tutor iframe {
+         width: 100%;
+         height: 500px;
+      }
+   }
+} 
+</style>
+
+<section class="playlist-videos" style="direction: rtl;">
+
+   <h1 class="heading">الملفات</h1>
+
+   <div class="column" style="display: flex;
+   justify-content: center;
+   align-items: center;">
+
+      <a class="box" href="">
+         
+         <img width="500" height="300" src="{% static 'assets/img/pdf1.jpg' %}" alt="">
+         <h1 style="color: rgb(235, 86, 32);font-size: 20px;">{{lists.name}}</h1>
+      </a>
+   </div>
+
+</section>
+
+{% if messages %}
+<div id="django-messages" style="display: none;">
+    {% for message in messages %}
+        <span class="message" data-tags="{{ message.tags }}">{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<script>
+   document.addEventListener('contextmenu', event => event.preventDefault());
+   document.addEventListener('keydown', event => {
+       if (event.key === 'PrintScreen') {
+           event.preventDefault();
+           alert('Screen capture is disabled');
+       }
+   });
+   
+
+</script>
+
+
+{% endblock content %}
